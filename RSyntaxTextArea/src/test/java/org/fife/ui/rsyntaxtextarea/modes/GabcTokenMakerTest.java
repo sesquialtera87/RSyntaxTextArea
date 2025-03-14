@@ -3,14 +3,11 @@ package org.fife.ui.rsyntaxtextarea.modes;
 import org.fife.ui.rsyntaxtextarea.Token;
 import org.fife.ui.rsyntaxtextarea.TokenMaker;
 import org.fife.ui.rsyntaxtextarea.TokenTypes;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 class GabcTokenMakerTest extends AbstractJFlexTokenMakerTest {
 
@@ -35,7 +32,7 @@ class GabcTokenMakerTest extends AbstractJFlexTokenMakerTest {
 	public void testCommon_GetLineCommentStartAndEnd() {
 		var tm = createTokenMaker();
 		var comm = new String[]{"% ", null};
-		Assertions.assertArrayEquals(comm, tm.getLineCommentStartAndEnd(0));
+		assertArrayEquals(comm, tm.getLineCommentStartAndEnd(0));
 	}
 
 	@Test
@@ -99,8 +96,6 @@ class GabcTokenMakerTest extends AbstractJFlexTokenMakerTest {
 		token = tm.getTokenList(seg, TokenTypes.NULL, 0);
 		tokens = tokenList(token);
 
-		System.out.println(tokens.length);
-		System.out.println(Arrays.toString(tokens));
 		assertEquals(15, tokens.length);
 		assertEquals("name", tokens[0].getLexeme());
 		assertEquals("%%", tokens[6].getLexeme());

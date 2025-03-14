@@ -6,8 +6,6 @@ import org.fife.ui.rsyntaxtextarea.TokenTypes;
 
 import javax.swing.text.Segment;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
 %%
 
@@ -38,6 +36,11 @@ import java.util.Map;
     int startOffset;
 
     @Override
+    public String[] getLineCommentStartAndEnd(int languageIndex) {
+        return new String[]{"% ", null};
+    }
+
+    @Override
     public Token getTokenList(Segment text, int initialTokenType, int startOffset) {
         resetTokenList();
 
@@ -59,13 +62,11 @@ import java.util.Map;
 SignedInt       =  ([+-])?[0-9]+
 LineTerminator  = \r|\n|\r\n
 Whitespace      = [ \t]+
-Semicolon       = [;]
 PropertyName    = [a-zA-Z-]+
 TagName         = (clear|c|i|b|ul|sp|tt|sc|eu|e|nlba|alt|v)
 Tag             = "<" {TagName} ">"
 ClosingTag      = "</" {TagName} ">"
 Escape          = "$" [^ \t\r\n]
-
 Spaces          = "!" | \/("0" | "!" | \[{SignedInt}\]|\/+)?
 
 %state PROPERTY_VALUE
@@ -88,7 +89,7 @@ Spaces          = "!" | \/("0" | "!" | \[{SignedInt}\]|\/+)?
 <PROPERTY_VALUE> {
     {Whitespace}               { addToken(TokenTypes.WHITESPACE); }
     [^ \t;]+                   { addToken(TokenTypes.MARKUP_CDATA); }
-    {Semicolon} {Semicolon}?   { addToken(TokenTypes.SEPARATOR); yybegin(YYINITIAL);}
+    ";" ";"?                   { addToken(TokenTypes.SEPARATOR); yybegin(YYINITIAL);}
     <<EOF>>                    { return 0; }
 }
 
