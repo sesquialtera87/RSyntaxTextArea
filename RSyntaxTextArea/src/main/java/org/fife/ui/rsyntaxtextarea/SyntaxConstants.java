@@ -131,6 +131,12 @@ public interface SyntaxConstants {
 
 
 	/**
+	 * Style for highlighting gabc files.
+	 */
+	String SYNTAX_STYLE_GABC			= "text/gabc";
+
+
+	/**
 	 * Style for highlighting go.
 	 */
 	String SYNTAX_STYLE_GO				= "text/golang";
