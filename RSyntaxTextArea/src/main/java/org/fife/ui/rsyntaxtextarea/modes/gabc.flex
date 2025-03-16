@@ -24,11 +24,11 @@ import java.io.IOException;
         super.addToken(text.array, text.offset + zzStartRead, text.offset + zzMarkedPos - 1, tokenType, startOffset + zzStartRead);
     }
 
-    int encodeLexerState() {
-        return -(yystate() * 10 + 7);
+    public static int encodeLexerState(int state) {
+        return -(state * 10 + 7);
     }
 
-    int decodeLexerState(int encoded) {
+    public static int decodeLexerState(int encoded) {
         return (-encoded - 7) / 10;
     }
 
@@ -53,7 +53,7 @@ import java.io.IOException;
             throw new RuntimeException(e);
         }
 
-        super.addToken(text, startOffset, startOffset - 1, encodeLexerState(), startOffset);
+        super.addToken(text, startOffset, startOffset - 1, encodeLexerState(yystate()), startOffset);
 
         return firstToken;
     }

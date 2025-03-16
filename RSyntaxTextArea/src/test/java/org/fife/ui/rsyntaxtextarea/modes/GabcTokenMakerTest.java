@@ -51,7 +51,22 @@ class GabcTokenMakerTest extends AbstractJFlexTokenMakerTest {
 		assertTrue(tokens[2].isWhitespace());
 		assertEquals("incipit", tokens[3].getLexeme());
 		assertEquals(";", tokens[4].getLexeme());
+	}
 
+	@Test
+	void testNotation() {
+		var code = "(c4) $$<i>italic</i>(a_/[3]c#)";
+		var seg = createSegment(code);
+		var tm = createTokenMaker();
+		var token = tm.getTokenList(seg, GabcTokenMaker.encodeLexerState(GabcTokenMaker.CODE), 0);
+		var tokens = tokenList(token);
+
+		assertEquals(TokenTypes.SEPARATOR, tokens[0].getType());
+		assertEquals(TokenTypes.DATA_TYPE, tokens[1].getType());
+		assertTrue(tokens[4].isWhitespace());
+		assertEquals(TokenTypes.REGEX, tokens[5].getType());
+		assertEquals(TokenTypes.MARKUP_DTD, tokens[6].getType());
+		assertEquals(TokenTypes.MARKUP_DTD, tokens[13].getType());
 	}
 
 	@Test

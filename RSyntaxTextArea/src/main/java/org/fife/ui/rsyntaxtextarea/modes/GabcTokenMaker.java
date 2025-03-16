@@ -337,11 +337,11 @@ public class GabcTokenMaker extends TokenMakerBase {
 		super.addToken(text.array, text.offset + zzStartRead, text.offset + zzMarkedPos - 1, tokenType, startOffset + zzStartRead);
 	}
 
-	int encodeLexerState() {
-		return -(yystate() * 10 + 7);
+	public static int encodeLexerState(int state) {
+		return -(state * 10 + 7);
 	}
 
-	int decodeLexerState(int encoded) {
+	public static int decodeLexerState(int encoded) {
 		return (-encoded - 7) / 10;
 	}
 
@@ -366,7 +366,7 @@ public class GabcTokenMaker extends TokenMakerBase {
 			throw new RuntimeException(e);
 		}
 
-		super.addToken(text, startOffset, startOffset - 1, encodeLexerState(), startOffset);
+		super.addToken(text, startOffset, startOffset - 1, encodeLexerState(yystate()), startOffset);
 
 		return firstToken;
 	}
@@ -417,40 +417,9 @@ public class GabcTokenMaker extends TokenMakerBase {
 
 
 	/**
-	 * Returns the text matched by the current regular expression.
-	 */
-	public final CharSequence yytext() {
-		return zzBuffer.subSequence(zzStartRead, zzMarkedPos);
-	}
-
-
-	/**
-	 * Returns the character at position {@code pos} from the
-	 * matched text.
-	 * <p>
-	 * It is equivalent to yytext().charAt(pos), but faster
-	 *
-	 * @param pos the position of the character to fetch.
-	 *            A value from 0 to yylength()-1.
-	 * @return the character at position pos
-	 */
-	public final char yycharat(int pos) {
-		return zzBuffer.charAt(zzStartRead + pos);
-	}
-
-
-	/**
-	 * Returns the length of the matched text region.
-	 */
-	public final int yylength() {
-		return zzMarkedPos - zzStartRead;
-	}
-
-
-	/**
 	 * Reports an error that occurred while scanning.
 	 * <p>
-	 * In a wellformed scanner (no or only correct usage of
+	 * In a well-formed scanner (no or only correct usage of
 	 * yypushback(int) and a match-all fallback rule) this method
 	 * will only be called with things that "Can't Possibly Happen".
 	 * If this method is called, something is seriously wrong
@@ -459,7 +428,7 @@ public class GabcTokenMaker extends TokenMakerBase {
 	 * Usual syntax/scanner level error handling should be done
 	 * in error fallback rules.
 	 *
-	 * @param errorCode the code of the errormessage to display
+	 * @param errorCode the code of the error message to display
 	 */
 	private void zzScanError(int errorCode) {
 		String message;
@@ -470,22 +439,6 @@ public class GabcTokenMaker extends TokenMakerBase {
 		}
 
 		throw new Error(message);
-	}
-
-
-	/**
-	 * Pushes the specified amount of characters back into the input stream.
-	 * <p>
-	 * They will be read again by then next call of the scanning method
-	 *
-	 * @param number the number of characters to be read again.
-	 *               This number must not be greater than yylength()!
-	 */
-	public void yypushback(int number) {
-		if (number > yylength())
-			zzScanError(ZZ_PUSHBACK_2BIG);
-
-		zzMarkedPos -= number;
 	}
 
 
