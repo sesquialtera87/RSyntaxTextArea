@@ -453,21 +453,25 @@ public class RSyntaxTextAreaEditorKit extends RTextAreaEditorKit {
 				!selection && rsta.getCloseMarkupTags() && dot>1) {
 
 				try {
-
 					// Check actual char before token type, since it's quicker
-					char ch = doc.charAt(dot-2);
-					if (ch=='<' || ch=='[') {
+					char ch = doc.charAt(dot - 2);
 
-						Token t = doc.getTokenListForLine(
-							rsta.getCaretLineNumber());
-						t = RSyntaxUtilities.getTokenAtOffset(t, dot-1);
-						if (t!=null && t.getType()==Token.MARKUP_TAG_DELIMITER) { // Closing tag
+					if (ch == '<' || ch == '[') {
+						Token t = doc.getTokenListForLine(rsta.getCaretLineNumber());
+						t = RSyntaxUtilities.getTokenAtOffset(t, dot - 1);
+
+						if (t != null && t.getType() == Token.MARKUP_TAG_DELIMITER) { // Closing tag
+							boolean soonClose = (dot - 3) >= 0 && doc.charAt(dot - 3) == '>';
 							String tagName = discoverTagName(doc, dot);
-							if (tagName!=null) {
-								rsta.replaceSelection(tagName + (char)(ch+2));
+
+							if (tagName != null) {
+								rsta.replaceSelection(tagName + (char) (ch + 2));
+
+								if (soonClose) {
+									c.setDot(dot - 2);
+								}
 							}
 						}
-
 					}
 
 				} catch (BadLocationException ble) { // Never happens

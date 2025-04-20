@@ -49,6 +49,12 @@ class RSyntaxTextAreaEditorKitCloseMarkupTagActionTest extends AbstractRSyntaxTe
 
 		String expected = "<foo></foo>";
 		Assertions.assertEquals(expected, textArea.getText());
+		Assertions.assertEquals(5, textArea.getCaretPosition());
+
+		textArea.setText("<foo>text<");
+		expected = "<foo>text</foo>";
+		a.actionPerformedImpl(null,textArea);
+		Assertions.assertEquals(expected, textArea.getText());
 		Assertions.assertEquals(textArea.getDocument().getLength(), textArea.getCaretPosition());
 	}
 
@@ -64,6 +70,11 @@ class RSyntaxTextAreaEditorKitCloseMarkupTagActionTest extends AbstractRSyntaxTe
 		a.actionPerformedImpl(null, textArea);
 
 		String expected = "<foo><bar></bar><self-closed/></foo>";
+		Assertions.assertEquals(expected, textArea.getText());
+
+		textArea.setText("<foo><bar></bar><self-closed/>some text<");
+		expected = "<foo><bar></bar><self-closed/>some text</foo>";
+		a.actionPerformedImpl(null,textArea);
 		Assertions.assertEquals(expected, textArea.getText());
 		Assertions.assertEquals(textArea.getDocument().getLength(), textArea.getCaretPosition());
 	}
@@ -81,6 +92,11 @@ class RSyntaxTextAreaEditorKitCloseMarkupTagActionTest extends AbstractRSyntaxTe
 
 		String expected = "<foo attr=\"value/with slashes\"></foo>";
 		Assertions.assertEquals(expected, textArea.getText());
+
+		textArea.setText("<foo attr=\"value/with slashes\">text<");
+		expected = "<foo attr=\"value/with slashes\">text</foo>";
+		a.actionPerformedImpl(null,textArea);
+		Assertions.assertEquals(expected, textArea.getText());
 		Assertions.assertEquals(textArea.getDocument().getLength(), textArea.getCaretPosition());
 	}
 
@@ -96,6 +112,12 @@ class RSyntaxTextAreaEditorKitCloseMarkupTagActionTest extends AbstractRSyntaxTe
 		a.actionPerformedImpl(null, textArea);
 
 		String expected = "< foo></foo>";
+		Assertions.assertEquals(expected, textArea.getText());
+		Assertions.assertEquals(6, textArea.getCaretPosition());
+
+		textArea.setText("< foo>some text<");
+		expected = "< foo>some text</foo>";
+		a.actionPerformedImpl(null,textArea);
 		Assertions.assertEquals(expected, textArea.getText());
 		Assertions.assertEquals(textArea.getDocument().getLength(), textArea.getCaretPosition());
 	}
