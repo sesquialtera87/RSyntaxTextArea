@@ -57,6 +57,10 @@ public interface SyntaxConstants {
 	 */
 	String SYNTAX_STYLE_BBCODE			= "text/bbcode";
 
+	/**
+	 * Style for highlighting BibTex bibliography files
+	 */
+	String SYNTAX_STYLE_BIBTEX = "text/bibtex";
 
 	/**
 	 * Style for highlighting C.

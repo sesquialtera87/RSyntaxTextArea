@@ -9,6 +9,8 @@
 package org.fife.ui.rsyntaxtextarea;
 
 
+import org.fife.ui.rsyntaxtextarea.modes.BibTexTokenMaker;
+
 /**
  * The default implementation of <code>TokenMakerFactory</code>.  This factory
  * can create {@link TokenMaker}s for all languages known to
@@ -25,12 +27,12 @@ class DefaultTokenMakerFactory extends AbstractTokenMakerFactory
 	protected void initTokenMakerMap() {
 
 		String pkg = "org.fife.ui.rsyntaxtextarea.modes.";
-
 		putMapping(SYNTAX_STYLE_NONE,			pkg + "PlainTextTokenMaker");
 		putMapping(SYNTAX_STYLE_ACTIONSCRIPT,	pkg + "ActionScriptTokenMaker");
 		putMapping(SYNTAX_STYLE_ASSEMBLER_X86,	pkg + "AssemblerX86TokenMaker");
 		putMapping(SYNTAX_STYLE_ASSEMBLER_6502,	pkg + "Assembler6502TokenMaker");
 		putMapping(SYNTAX_STYLE_BBCODE,			pkg + "BBCodeTokenMaker");
+		putMapping(SYNTAX_STYLE_BIBTEX,			pkg + "BibTexTokenMaker");
 		putMapping(SYNTAX_STYLE_C,				pkg + "CTokenMaker");
 		putMapping(SYNTAX_STYLE_CLOJURE,		pkg + "ClojureTokenMaker");
 		putMapping(SYNTAX_STYLE_CPLUSPLUS,		pkg + "CPlusPlusTokenMaker");

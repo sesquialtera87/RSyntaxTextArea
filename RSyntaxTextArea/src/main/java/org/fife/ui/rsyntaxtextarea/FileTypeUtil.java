@@ -405,6 +405,7 @@ public final class FileTypeUtil implements SyntaxConstants {
 		initFiltersImpl(map, SYNTAX_STYLE_ASSEMBLER_6502, "*.s");
 		initFiltersImpl(map, SYNTAX_STYLE_ASSEMBLER_X86, "*.asm");
 		initFiltersImpl(map, SYNTAX_STYLE_BBCODE, "*.bbc");
+		initFiltersImpl(map, SYNTAX_STYLE_BIBTEX, "*.bib");
 		initFiltersImpl(map, SYNTAX_STYLE_C, "*.c");
 		initFiltersImpl(map, SYNTAX_STYLE_CLOJURE, "*.clj");
 		initFiltersImpl(map, SYNTAX_STYLE_CPLUSPLUS, "*.cpp", "*.cxx", "*.h", "*.hpp");
